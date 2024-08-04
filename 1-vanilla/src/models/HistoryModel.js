@@ -1,3 +1,5 @@
+import { formatDate } from '../utils/date.js'
+
 export default {
   data: [
     { keyword: '검색기록2', date: '07.03' },
@@ -15,7 +17,7 @@ export default {
     if (this.data.some(item => item.keyword === keyword)) {
       this.remove(keyword)
 
-      const date = new Date()
+      const date = formatDate()
       this.data = [{ keyword, date }, ...this.data]
     }
   },
