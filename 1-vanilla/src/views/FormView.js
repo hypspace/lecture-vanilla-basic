@@ -11,10 +11,12 @@ FormView.setup = function (el) {
 
   this.bindEvents()
   this.showResetBtn()
+  return this
 }
 
 FormView.onKeyup = function (e) {
   this.showResetBtn(e.target.value)
+  if (e.key === 'Enter') this.emit('@submit', { input: e.target.value })
 }
 
 FormView.showResetBtn = function (show = false) {
