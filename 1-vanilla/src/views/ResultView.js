@@ -12,6 +12,7 @@ ResultView.setup = function (el) {
 
 ResultView.render = function (data = []) {
   this.el.innerHTML = data.length ? this.displayResults(data) : this.NO_RESULT
+  this.show()
 }
 
 ResultView.displayResults = function (data) {

@@ -10,7 +10,7 @@ export default {
     FormView.setup(document.querySelector('form'))
       .on('submit', e => e.preventDefault())
       .on('@submit', e => this.handleSubmitForm(e.detail.input))
-      .on('@reset', () => this.handleClickReset())
+      .on('@reset', () => this.handleResetForm())
 
     ResultView.setup(document.querySelector('#search-result'))
   },
@@ -19,8 +19,12 @@ export default {
     SearchModel.list(query) //
       .then(res => {
         console.log(tag, 'search()', res)
-        ResultView.render(res)
+        this.handleSearchResult(res)
       })
+  },
+
+  handleSearchResult(data) {
+    ResultView.render(data)
   },
 
   handleSubmitForm(input) {
@@ -28,7 +32,8 @@ export default {
     this.search(input)
   },
 
-  handleClickReset() {
-    console.log(tag, 'handleClickReset()')
+  handleResetForm() {
+    console.log(tag, 'handleResetForm()')
+    ResultView.hide()
   },
 }
