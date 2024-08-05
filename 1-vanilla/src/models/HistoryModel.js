@@ -13,13 +13,14 @@ export default {
 
   add(keyword = '') {
     keyword = keyword.trim()
+
     if (!keyword) return
     if (this.data.some(item => item.keyword === keyword)) {
       this.remove(keyword)
-
-      const date = formatDate()
-      this.data = [{ keyword, date }, ...this.data]
     }
+
+    const date = formatDate()
+    this.data = [{ keyword, date }, ...this.data]
   },
 
   remove(keyword) {
