@@ -31,11 +31,9 @@ export default {
   },
 
   search(query) {
+    FormView.setValue(query)
     SearchModel.list(query) //
-      .then(res => {
-        console.log(tag, 'search()', res)
-        this.handleSearchResult(res)
-      })
+      .then(res => this.handleSearchResult(res))
   },
 
   handleSearchResult(data) {
