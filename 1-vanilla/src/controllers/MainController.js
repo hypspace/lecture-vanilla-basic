@@ -45,6 +45,7 @@ export default {
 
   search(query) {
     FormView.setValue(query)
+    HistoryModel.add(query)
     SearchModel.list(query) //
       .then(res => this.handleSearchResult(res))
   },
@@ -56,7 +57,6 @@ export default {
   },
 
   handleSubmitForm(input) {
-    console.log(tag, 'handleSubmitForm()', input)
     this.search(input)
   },
 
@@ -79,7 +79,6 @@ export default {
   },
 
   handleRemoveHistory(keyword) {
-    console.log(tag, 'handleRemoveHistory()', keyword)
     HistoryModel.remove(keyword)
     this.fetchSearchHistory()
   },
