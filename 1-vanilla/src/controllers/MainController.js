@@ -1,8 +1,10 @@
 import FormView from '../views/FormView.js'
 import ResultView from '../views/ResultView.js'
 import TabView from '../views/TabView.js'
+import KeywordView from '../views/KeywordView.js'
 
 import SearchModel from '../models/SearchModel.js'
+import KeywordModel from '../models/KeywordModel.js'
 
 const tag = '[MainController]'
 
@@ -16,6 +18,7 @@ export default {
     ResultView.setup(document.querySelector('#search-result'))
     TabView.setup(document.querySelector('#tabs')) //
       .on('@change', e => this.handleChangeTab(e.detail.tabName))
+    KeywordView.setup(document.querySelector('#search-keyword'))
 
     this.selectedTab = '추천 검색어'
     this.renderView()
@@ -23,6 +26,7 @@ export default {
 
   renderView() {
     TabView.setActiveTab(this.selectedTab)
+    if ((this.selectedTab = '추천 검색어')) this.fetchSearchKeyword()
   },
 
   search(query) {
@@ -49,5 +53,9 @@ export default {
 
   handleChangeTab(tabName) {
     console.log(tabName)
+  },
+
+  fetchSearchKeyword() {
+    KeywordModel.list().then(res => KeywordView.render(res))
   },
 }
