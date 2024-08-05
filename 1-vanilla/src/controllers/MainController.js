@@ -48,8 +48,8 @@ export default {
   },
 
   handleResetForm() {
-    console.log(tag, 'handleResetForm()')
     ResultView.hide()
+    this.renderView()
   },
 
   handleChangeTab(tabName) {
