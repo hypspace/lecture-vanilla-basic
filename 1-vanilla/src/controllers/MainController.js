@@ -18,7 +18,8 @@ export default {
     ResultView.setup(document.querySelector('#search-result'))
     TabView.setup(document.querySelector('#tabs')) //
       .on('@change', e => this.handleChangeTab(e.detail.tabName))
-    KeywordView.setup(document.querySelector('#search-keyword'))
+    KeywordView.setup(document.querySelector('#search-keyword')) //
+      .on('@click', e => this.handleClickKeyword(e.detail.keyword))
 
     this.selectedTab = '추천 검색어'
     this.renderView()
@@ -38,6 +39,8 @@ export default {
   },
 
   handleSearchResult(data) {
+    TabView.hide()
+    KeywordView.hide()
     ResultView.render(data)
   },
 
@@ -53,6 +56,10 @@ export default {
 
   handleChangeTab(tabName) {
     console.log(tabName)
+  },
+
+  handleClickKeyword(keyword) {
+    this.search(keyword)
   },
 
   fetchSearchKeyword() {

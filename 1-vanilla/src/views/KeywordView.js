@@ -8,10 +8,13 @@ KeywordView.NO_RESULT = '추천 검색어가 없습니다'
 
 KeywordView.setup = function (el) {
   this.init(el)
+
+  return this
 }
 
 KeywordView.render = function (data = []) {
   this.el.innerHTML = data.length ? this.displayKeywords(data) : this.NO_RESULT
+  this.bindEvents()
   this.show()
 }
 
@@ -25,10 +28,23 @@ KeywordView.displayKeywords = function (data) {
 }
 
 KeywordView.createHTMLString = function (item, idx) {
-  return `<li>
+  return `<li data-keyword="${item.keyword}">
       <span class="number">${idx + 1}</span>
       ${item.keyword}
     </li>`
+}
+
+KeywordView.onClickKeyword = function (keyword) {
+  this.emit('@click', { keyword })
+}
+
+KeywordView.bindEvents = function () {
+  Array.from(this.el.querySelectorAll('li')) //
+    .forEach(li =>
+      li.addEventListener('click', e =>
+        this.onClickKeyword(e.target.dataset.keyword)
+      )
+    )
 }
 
 export default KeywordView
