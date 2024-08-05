@@ -26,7 +26,7 @@ export default {
       .on('@click', e => this.handleClickHistory(e.detail.keyword))
       .on('@remove', e => this.handleRemoveHistory(e.detail.keyword))
 
-    this.selectedTab = '최근 검색어'
+    this.selectedTab = '추천 검색어'
     this.renderView()
   },
 
@@ -66,7 +66,8 @@ export default {
   },
 
   handleChangeTab(tabName) {
-    console.log(tabName)
+    this.selectedTab = tabName
+    this.renderView()
   },
 
   handleClickKeyword(keyword) {
