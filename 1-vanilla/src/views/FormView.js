@@ -35,4 +35,9 @@ FormView.bindEvents = function () {
   this.resetEl.addEventListener('click', () => this.onClick())
 }
 
+FormView.setValue = function (value = '') {
+  this.inputEl.value = value
+  FormView.showResetBtn(this.inputEl.value.length)
+}
+
 export default FormView

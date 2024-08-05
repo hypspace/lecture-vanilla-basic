@@ -17,6 +17,7 @@ TabView.setActiveTab = function (tabName = '') {
       ? li.classList.add('active')
       : li.classList.remove('active')
   })
+  this.show()
 }
 
 TabView.onClickTab = function (tabName) {
