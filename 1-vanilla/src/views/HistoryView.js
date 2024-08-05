@@ -14,6 +14,7 @@ HistoryView.setup = function (el) {
 
 HistoryView.render = function (data = []) {
   this.el.innerHTML = data.length ? this.displayHistory(data) : this.NO_RESULT
+  this.bindEvents()
   this.show()
 }
 
@@ -26,12 +27,24 @@ HistoryView.displayHistory = function (data) {
   )
 }
 
-HistoryView.createHTMLString = function (item, idx) {
+HistoryView.createHTMLString = function (item) {
   return `<li data-keyword="${item.keyword}">
       ${item.keyword}
       <span class="date">${item.date}</span>
       <button class="btn-remove"></button>
     </li>`
+}
+
+HistoryView.onClickHistory = function (keyword) {
+  this.emit('@remove', { keyword })
+}
+
+HistoryView.bindEvents = function () {
+  this.el.addEventListener('click', e => {
+    if (e.target.className === 'btn-remove') {
+      this.onClickHistory(e.target.parentNode.dataset.keyword)
+    }
+  })
 }
 
 export default HistoryView

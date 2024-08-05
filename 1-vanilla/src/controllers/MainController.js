@@ -24,6 +24,7 @@ export default {
       .on('@click', e => this.handleClickKeyword(e.detail.keyword))
     HistoryView.setup(document.querySelector('#search-history')) //
       .on('@click', e => this.handleClickHistory(e.detail.keyword))
+      .on('@remove', e => this.handleRemoveHistory(e.detail.keyword))
 
     this.selectedTab = '최근 검색어'
     this.renderView()
@@ -74,6 +75,12 @@ export default {
 
   handleClickHistory(keyword) {
     this.search(keyword)
+  },
+
+  handleRemoveHistory(keyword) {
+    console.log(tag, 'handleRemoveHistory()', keyword)
+    HistoryModel.remove(keyword)
+    this.fetchSearchHistory()
   },
 
   fetchSearchKeyword() {
