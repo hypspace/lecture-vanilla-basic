@@ -6,6 +6,9 @@ const TabView = Object.create(View)
 
 TabView.setup = function (el) {
   this.el = el
+
+  this.bindEvents()
+  return this
 }
 
 TabView.setActiveTab = function (tabName = '') {
@@ -14,6 +17,15 @@ TabView.setActiveTab = function (tabName = '') {
       ? li.classList.add('active')
       : li.classList.remove('active')
   })
+}
+
+TabView.onClickTab = function (tabName) {
+  this.setActiveTab(tabName)
+  this.emit('@change', { tabName })
+}
+
+TabView.bindEvents = function () {
+  this.el.addEventListener('click', e => this.onClickTab(e.target.textContent))
 }
 
 export default TabView

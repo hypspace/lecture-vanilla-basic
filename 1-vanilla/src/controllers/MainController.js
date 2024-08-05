@@ -14,7 +14,8 @@ export default {
       .on('@reset', () => this.handleResetForm())
 
     ResultView.setup(document.querySelector('#search-result'))
-    TabView.setup(document.querySelector('#tabs'))
+    TabView.setup(document.querySelector('#tabs')) //
+      .on('@change', e => this.handleChangeTab(e.detail.tabName))
 
     this.selectedTab = '추천 검색어'
     this.renderView()
@@ -44,5 +45,9 @@ export default {
   handleResetForm() {
     console.log(tag, 'handleResetForm()')
     ResultView.hide()
+  },
+
+  handleChangeTab(tabName) {
+    console.log(tabName)
   },
 }
