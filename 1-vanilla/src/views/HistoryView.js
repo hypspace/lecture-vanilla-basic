@@ -28,8 +28,9 @@ HistoryView.displayHistory = function (data) {
 
 HistoryView.createHTMLString = function (item, idx) {
   return `<li data-keyword="${item.keyword}">
-      <span class="number">${idx + 1}</span>
       ${item.keyword}
+      <span class="date">${item.date}</span>
+      <button class="btn-remove"></button>
     </li>`
 }
 
