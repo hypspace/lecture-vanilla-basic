@@ -28,6 +28,9 @@ new Vue({
       this.$refs.input.focus()
       this.hasSearched = false
     },
+    onChange(tabName) {
+      this.selectedTab = tabName
+    },
   },
   watch: {
     query(newValue) {
