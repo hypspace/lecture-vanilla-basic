@@ -8,5 +8,23 @@
     <link rel="stylesheet" href="style.css" />
     <script type="module" src="src/app.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <div id="app">
+      <header>
+        <h2 class="container">입력</h2>
+      </header>
+
+      <div class="container">
+        <form>
+          <input
+            v-model="query"
+            type="text"
+            placeholder="검색어를 입력하세요"
+            autofocus
+          />
+          <button v-show="query" type="reset" class="btn-reset"></button>
+        </form>
+      </div>
+    </div>
+  </body>
 </html>
