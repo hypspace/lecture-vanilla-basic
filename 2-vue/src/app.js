@@ -5,4 +5,9 @@ new Vue({
   data: {
     query: '',
   },
+  methods: {
+    onSubmit(e) {
+      console.log('onSubmit()', e)
+    },
+  },
 })

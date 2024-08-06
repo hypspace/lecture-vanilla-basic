@@ -15,7 +15,7 @@
       </header>
 
       <div class="container">
-        <form>
+        <form v-on:submit.prevent="onSubmit">
           <input
             v-model="query"
             type="text"
