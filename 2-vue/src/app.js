@@ -7,6 +7,11 @@ new Vue({
     query: '',
     searchResults: [],
     hasSearched: false,
+    tabs: ['추천 검색어', '최근 검색어'],
+    selectedTab: '',
+  },
+  created() {
+    this.selectedTab = this.tabs[0]
   },
   methods: {
     search(query) {

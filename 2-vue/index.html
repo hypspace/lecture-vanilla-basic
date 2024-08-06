@@ -30,16 +30,27 @@
             v-on:click="onReset"
           ></button>
         </form>
-        <div class="content" v-if="hasSearched">
-          <div id="search-result" v-if="this.searchResults.length">
-            <ul>
-              <li v-for="item in searchResults">
-                <img v-bind:src="item.image" v-bind:alt="item.name" />
-                <p>{{item.name}}</p>
-              </li>
-            </ul>
+
+        <div class="content">
+          <div v-if="hasSearched">
+            <div id="search-result" v-if="this.searchResults.length">
+              <ul>
+                <li v-for="item in searchResults">
+                  <img v-bind:src="item.image" v-bind:alt="item.name" />
+                  <p>{{item.name}}</p>
+                </li>
+              </ul>
+            </div>
+            <div v-else>{{query}} 검색 결과가 없습니다</div>
           </div>
-          <div v-else>{{query}} 검색 결과가 없습니다</div>
+          <ul id="tabs" class="tabs" v-else>
+            <li
+              v-for="tab in tabs"
+              v-bind:class="{active: tab === selectedTab}"
+            >
+              {{tab}}
+            </li>
+          </ul>
         </div>
       </div>
     </div>
