@@ -9,5 +9,16 @@ new Vue({
     onSubmit(e) {
       console.log('onSubmit()', e)
     },
+    onReset() {
+      this.query = ''
+      this.$refs.input.focus()
+    },
+  },
+  watch: {
+    query(newValue) {
+      if (!newValue) {
+        console.log('query()')
+      }
+    },
   },
 })

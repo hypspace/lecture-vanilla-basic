@@ -17,12 +17,18 @@
       <div class="container">
         <form v-on:submit.prevent="onSubmit">
           <input
-            v-model="query"
             type="text"
             placeholder="검색어를 입력하세요"
+            v-model="query"
+            ref="input"
             autofocus
           />
-          <button v-show="query" type="reset" class="btn-reset"></button>
+          <button
+            type="reset"
+            class="btn-reset"
+            v-show="query"
+            v-on:click="onReset"
+          ></button>
         </form>
       </div>
     </div>
