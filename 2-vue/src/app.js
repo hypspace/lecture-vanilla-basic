@@ -21,12 +21,13 @@ new Vue({
     onReset() {
       this.query = ''
       this.$refs.input.focus()
+      this.hasSearched = false
     },
   },
   watch: {
     query(newValue) {
       if (!newValue) {
-        console.log('query()')
+        this.hasSearched = false
       }
     },
   },
