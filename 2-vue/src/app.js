@@ -32,6 +32,7 @@ new Vue({
       this.query = ''
       this.$refs.input.focus()
       this.hasSearched = false
+      this.selectedTab = '추천 검색어'
     },
     onChange(tabName) {
       this.selectedTab = tabName

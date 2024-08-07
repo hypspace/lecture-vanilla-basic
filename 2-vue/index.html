@@ -68,7 +68,10 @@
             </ul>
           </div>
 
-          <div id="search-history" v-else-if="!hasSearched">
+          <div
+            id="search-history"
+            v-else-if="selectedTab === tabs[1] && !hasSearched"
+          >
             <div v-if="histories.length">
               <ul class="list">
                 <li
