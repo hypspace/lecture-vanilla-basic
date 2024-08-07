@@ -2,6 +2,7 @@ import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.esm.browser.js
 import FormComponent from './components/FormComponent.js'
 import ResultComponent from './components/ResultComponent.js'
 import ListComponent from './components/ListComponent.js'
+import TabComponent from './components/TabComponent.js'
 import SearchModel from './models/SearchModel.js'
 import KeywordModel from './models/KeywordModel.js'
 import HistoryModel from './models/HistoryModel.js'
@@ -21,6 +22,7 @@ new Vue({
     'search-form': FormComponent,
     'search-result': ResultComponent,
     list: ListComponent,
+    tabs: TabComponent,
   },
   created() {
     this.selectedTab = this.tabs[0]
@@ -44,7 +46,7 @@ new Vue({
       this.hasSearched = false
       this.selectedTab = '추천 검색어'
     },
-    onChange(tabName) {
+    handleChange(tabName) {
       this.selectedTab = tabName
       this.fetchLists(this.selectedTab)
     },
