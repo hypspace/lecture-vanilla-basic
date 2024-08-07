@@ -27,16 +27,11 @@
             v-bind:query="query"
           ></search-result>
 
-          <!-- Tabs -->
-          <ul id="tabs" class="tabs" v-else>
-            <li
-              v-for="tab in tabs"
-              v-bind:class="{active: tab === selectedTab}"
-              v-on:click="onChange(tab)"
-            >
-              {{tab}}
-            </li>
-          </ul>
+          <tabs
+            v-bind:tabs="tabs"
+            v-bind:selected-tab="selectedTab"
+            v-on:@change="handleChange"
+          ></tabs>
 
           <list
             v-if="selectedTab === tabs[0] && !hasSearched"
@@ -110,4 +105,16 @@
     </ul>
   </div>
   <div v-else>{{tab}}가 없습니다</div>
+</template>
+
+<template id="tabs">
+  <ul id="tabs" class="tabs" v-else>
+    <li
+      v-for="tab in tabs"
+      v-bind:class="{active: tab === selectedTab}"
+      v-on:click="onChange(tab)"
+    >
+      {{tab}}
+    </li>
+  </ul>
 </template>
