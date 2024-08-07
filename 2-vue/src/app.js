@@ -53,8 +53,10 @@ new Vue({
     },
     onClickHistory(target, keyword) {
       const isNotRemove = !target.classList.contains('btn-remove')
-      if (isNotRemove) this.search(keyword)
-      this.query = keyword
+      if (isNotRemove) {
+        this.search(keyword)
+        this.query = keyword
+      }
     },
     fetchKeywords() {
       KeywordModel.list().then(data => {
