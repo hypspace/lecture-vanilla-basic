@@ -38,6 +38,13 @@ new Vue({
       if (tabName === '추천 검색어') this.fetchKeywords()
       if (tabName === '최근 검색어') this.fetchHistories()
     },
+    onRemove(target, keyword) {
+      const isRemove = target.classList.contains('btn-remove')
+      if (isRemove) {
+        HistoryModel.remove(keyword)
+        this.fetchHistories()
+      }
+    },
     onClickKeyword(keyword) {
       this.search(keyword)
       this.query = keyword

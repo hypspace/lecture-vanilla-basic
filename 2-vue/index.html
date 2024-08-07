@@ -77,7 +77,10 @@
                 >
                   {{item.keyword}}
                   <span class="date">{{item.date}}</span>
-                  <button class="btn-remove"></button>
+                  <button
+                    class="btn-remove"
+                    v-on:click="(e) => onRemove(e.target, item.keyword)"
+                  ></button>
                 </li>
               </ul>
             </div>
