@@ -25,8 +25,9 @@ new Vue({
         this.searchResults = data
       })
     },
-    onSubmit(query) {
-      this.search(query)
+    onSubmit() {
+      this.search(this.query)
+      HistoryModel.add(this.query)
     },
     onReset() {
       this.query = ''
