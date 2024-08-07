@@ -1,5 +1,6 @@
 import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.esm.browser.js'
 import FormComponent from './components/FormComponent.js'
+import ResultComponent from './components/ResultComponent.js'
 import SearchModel from './models/SearchModel.js'
 import KeywordModel from './models/KeywordModel.js'
 import HistoryModel from './models/HistoryModel.js'
@@ -17,6 +18,7 @@ new Vue({
   },
   components: {
     'search-form': FormComponent,
+    'search-result': ResultComponent,
   },
   created() {
     this.selectedTab = this.tabs[0]
