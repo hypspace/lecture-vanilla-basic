@@ -67,7 +67,28 @@
               </li>
             </ul>
           </div>
-          <div id="search-history" v-else>최근 검색어 목록</div>
+
+          <div
+            id="search-history"
+            v-else-if="selectedTab === tabs[1] && !hasSearched"
+          >
+            <div v-if="histories.length">
+              <ul class="list">
+                <li
+                  v-for="item in histories"
+                  v-on:click="(e)=>onClickHistory(e.target, item.keyword)"
+                >
+                  {{item.keyword}}
+                  <span class="date">{{item.date}}</span>
+                  <button
+                    class="btn-remove"
+                    v-on:click="(e) => onRemove(e.target, item.keyword)"
+                  ></button>
+                </li>
+              </ul>
+            </div>
+            <div v-else>최근 검색어가 없습니다</div>
+          </div>
         </div>
       </div>
     </div>
