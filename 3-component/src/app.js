@@ -1,4 +1,5 @@
 import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.esm.browser.js'
+import FormComponent from './components/FormComponent.js'
 import SearchModel from './models/SearchModel.js'
 import KeywordModel from './models/KeywordModel.js'
 import HistoryModel from './models/HistoryModel.js'
@@ -14,6 +15,9 @@ new Vue({
     keywords: [],
     histories: [],
   },
+  components: {
+    'search-form': FormComponent,
+  },
   created() {
     this.selectedTab = this.tabs[0]
     this.fetchKeywords()
@@ -25,13 +29,14 @@ new Vue({
         this.searchResults = data
       })
     },
-    onSubmit() {
+    handleSubmitForm(query) {
+      this.query = query
       this.search(this.query)
       HistoryModel.add(this.query)
     },
-    onReset() {
+    handleResetForm(input) {
       this.query = ''
-      this.$refs.input.focus()
+      input.focus()
       this.hasSearched = false
       this.selectedTab = '추천 검색어'
     },
@@ -67,13 +72,6 @@ new Vue({
       HistoryModel.list().then(data => {
         this.histories = data
       })
-    },
-  },
-  watch: {
-    query(newValue) {
-      if (!newValue) {
-        this.hasSearched = false
-      }
     },
   },
 })

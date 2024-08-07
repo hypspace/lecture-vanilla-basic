@@ -15,22 +15,11 @@
       </header>
 
       <div class="container">
-        <form v-on:submit.prevent="onSubmit">
-          <input
-            type="text"
-            placeholder="검색어를 입력하세요"
-            v-model="query"
-            ref="input"
-            autofocus
-          />
-          <button
-            type="reset"
-            class="btn-reset"
-            v-show="query"
-            v-on:click="onReset"
-          ></button>
-        </form>
-
+        <search-form
+          v-bind:value="query"
+          v-on:@submit="handleSubmitForm"
+          v-on:@reset="handleResetForm"
+        ></search-form>
         <div class="content">
           <div v-if="hasSearched">
             <div id="search-result" v-if="this.searchResults.length">
@@ -94,3 +83,21 @@
     </div>
   </body>
 </html>
+
+<template id="search-form">
+  <form v-on:submit.prevent="onSubmit">
+    <input
+      type="text"
+      placeholder="검색어를 입력하세요"
+      v-model="inputValue"
+      ref="input"
+      autofocus
+    />
+    <button
+      type="reset"
+      class="btn-reset"
+      v-show="inputValue"
+      v-on:click="onReset"
+    ></button>
+  </form>
+</template>
