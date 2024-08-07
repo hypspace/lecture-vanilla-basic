@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>MVVM pattern with Vue.js</title>
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="src/app.js" defer></script>
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h2 class="container">입력</h2>
+      </header>
+
+      <div class="container">
+        <search-form
+          v-bind:value="query"
+          v-on:@submit="handleSubmitForm"
+          v-on:@reset="handleResetForm"
+        ></search-form>
+        <div class="content">
+          <search-result
+            v-if="hasSearched"
+            v-bind:data="searchResults"
+            v-bind:query="query"
+          ></search-result>
+
+          <tabs
+            v-bind:tabs="tabs"
+            v-bind:selected-tab="selectedTab"
+            v-on:@change="handleChange"
+          ></tabs>
+
+          <list
+            v-if="selectedTab === tabs[0] && !hasSearched"
+            v-bind:data="keywords"
+            v-bind:tab="selectedTab"
+            v-on:@click="handleClickList"
+            type="keyword"
+          ></list>
+          <list
+            v-if="selectedTab === tabs[1] && !hasSearched"
+            v-bind:data="histories"
+            v-bind:tab="selectedTab"
+            v-on:@click="handleClickList"
+            v-on:@remove="handleRemove"
+            type="history"
+          ></list>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<template id="search-form">
+  <form v-on:submit.prevent="onSubmit">
+    <input
+      type="text"
+      placeholder="검색어를 입력하세요"
+      v-model="inputValue"
+      ref="input"
+      autofocus
+    />
+    <button
+      type="reset"
+      class="btn-reset"
+      v-show="inputValue"
+      v-on:click="onReset"
+    ></button>
+  </form>
+</template>
+
+<template id="search-result">
+  <div id="search-result">
+    <div v-if="data.length">
+      <ul>
+        <li v-for="item in data">
+          <img v-bind:src="item.image" v-bind:alt="item.name" />
+          <p>{{item.name}}</p>
+        </li>
+      </ul>
+    </div>
+    <div v-else>{{query}} 검색 결과가 없습니다</div>
+  </div>
+</template>
+
+<template id="list">
+  <div v-if="data.length">
+    <ul class="list">
+      <li
+        v-for="(item, idx) in data"
+        v-on:click="(e) => onClick(e.target, item.keyword)"
+      >
+        <span class="number" v-if="type === 'keyword'">{{idx+1}}</span>
+        {{item.keyword}}
+        <span class="date" v-if="type === 'history'">{{item.date}}</span>
+        <button
+          class="btn-remove"
+          v-on:click="(e) => onRemove(e.target, item.keyword)"
+          v-if="type === 'history'"
+        ></button>
+      </li>
+    </ul>
+  </div>
+  <div v-else>{{tab}}가 없습니다</div>
+</template>
+
+<template id="tabs">
+  <ul id="tabs" class="tabs" v-else>
+    <li
+      v-for="tab in tabs"
+      v-bind:class="{active: tab === selectedTab}"
+      v-on:click="onChange(tab)"
+    >
+      {{tab}}
+    </li>
+  </ul>
+</template>
