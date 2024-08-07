@@ -1,6 +1,7 @@
 import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.esm.browser.js'
 import FormComponent from './components/FormComponent.js'
 import ResultComponent from './components/ResultComponent.js'
+import ListComponent from './components/ListComponent.js'
 import SearchModel from './models/SearchModel.js'
 import KeywordModel from './models/KeywordModel.js'
 import HistoryModel from './models/HistoryModel.js'
@@ -19,10 +20,11 @@ new Vue({
   components: {
     'search-form': FormComponent,
     'search-result': ResultComponent,
+    list: ListComponent,
   },
   created() {
     this.selectedTab = this.tabs[0]
-    this.fetchKeywords()
+    this.fetchLists(this.selectedTab)
   },
   methods: {
     search(query) {
@@ -44,36 +46,32 @@ new Vue({
     },
     onChange(tabName) {
       this.selectedTab = tabName
-      if (tabName === '추천 검색어') this.fetchKeywords()
-      if (tabName === '최근 검색어') this.fetchHistories()
+      this.fetchLists(this.selectedTab)
     },
-    onRemove(target, keyword) {
+    handleRemove(target, keyword) {
       const isRemove = target.classList.contains('btn-remove')
       if (isRemove) {
         HistoryModel.remove(keyword)
-        this.fetchHistories()
+        this.fetchLists(this.selectedTab)
       }
     },
-    onClickKeyword(keyword) {
-      this.search(keyword)
+    handleClickList(target, keyword) {
+      const isRemove = target.classList.contains('btn-remove')
+      if (isRemove) return
       this.query = keyword
+      this.search(keyword)
     },
-    onClickHistory(target, keyword) {
-      const isNotRemove = !target.classList.contains('btn-remove')
-      if (isNotRemove) {
-        this.search(keyword)
-        this.query = keyword
+    fetchLists(tabName) {
+      if (tabName === '추천 검색어') {
+        KeywordModel.list().then(data => {
+          this.keywords = data
+        })
       }
-    },
-    fetchKeywords() {
-      KeywordModel.list().then(data => {
-        this.keywords = data
-      })
-    },
-    fetchHistories() {
-      HistoryModel.list().then(data => {
-        this.histories = data
-      })
+      if (tabName === '최근 검색어') {
+        HistoryModel.list().then(data => {
+          this.histories = data
+        })
+      }
     },
   },
 })
