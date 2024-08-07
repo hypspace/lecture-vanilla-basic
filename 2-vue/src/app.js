@@ -1,5 +1,6 @@
 import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.esm.browser.js'
 import SearchModel from './models/SearchModel.js'
+import KeywordModel from './models/KeywordModel.js'
 
 new Vue({
   el: '#app',
@@ -9,9 +10,11 @@ new Vue({
     hasSearched: false,
     tabs: ['추천 검색어', '최근 검색어'],
     selectedTab: '',
+    keywords: [],
   },
   created() {
     this.selectedTab = this.tabs[0]
+    this.fetchKeywords()
   },
   methods: {
     search(query) {
@@ -30,6 +33,17 @@ new Vue({
     },
     onChange(tabName) {
       this.selectedTab = tabName
+      if (tabName === '추천 검색어') {
+      }
+    },
+    onClickKeyword(keyword) {
+      this.search(keyword)
+      this.query = keyword
+    },
+    fetchKeywords() {
+      KeywordModel.list().then(data => {
+        this.keywords = data
+      })
     },
   },
   watch: {
