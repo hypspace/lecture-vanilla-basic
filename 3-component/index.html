@@ -21,17 +21,13 @@
           v-on:@reset="handleResetForm"
         ></search-form>
         <div class="content">
-          <div v-if="hasSearched">
-            <div id="search-result" v-if="this.searchResults.length">
-              <ul>
-                <li v-for="item in searchResults">
-                  <img v-bind:src="item.image" v-bind:alt="item.name" />
-                  <p>{{item.name}}</p>
-                </li>
-              </ul>
-            </div>
-            <div v-else>{{query}} 검색 결과가 없습니다</div>
-          </div>
+          <search-result
+            v-if="hasSearched"
+            v-bind:data="searchResults"
+            v-bind:query="query"
+          ></search-result>
+
+          <!-- Tabs -->
           <ul id="tabs" class="tabs" v-else>
             <li
               v-for="tab in tabs"
@@ -100,4 +96,18 @@
       v-on:click="onReset"
     ></button>
   </form>
+</template>
+
+<template id="search-result">
+  <div id="search-result">
+    <div v-if="data.length">
+      <ul>
+        <li v-for="item in data">
+          <img v-bind:src="item.image" v-bind:alt="item.name" />
+          <p>{{item.name}}</p>
+        </li>
+      </ul>
+    </div>
+    <div v-else>{{query}} 검색 결과가 없습니다</div>
+  </div>
 </template>
