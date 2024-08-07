@@ -53,9 +53,15 @@
             </li>
           </ul>
 
-          <div id="search-keyword" v-if="selectedTab === tabs[0]">
+          <div
+            id="search-keyword"
+            v-if="selectedTab === tabs[0] && !hasSearched"
+          >
             <ul class="list">
-              <li v-for="(item, idx) in keywords">
+              <li
+                v-for="(item, idx) in keywords"
+                v-on:click="onClickKeyword(item.keyword)"
+              >
                 <span class="number">{{idx+1}}</span>
                 {{item.keyword}}
               </li>
