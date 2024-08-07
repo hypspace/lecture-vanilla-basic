@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>MVVM pattern with Vue.js</title>
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="src/app.js" defer></script>
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h2 class="container">입력</h2>
+      </header>
+
+      <div class="container">
+        <form v-on:submit.prevent="onSubmit">
+          <input
+            type="text"
+            placeholder="검색어를 입력하세요"
+            v-model="query"
+            ref="input"
+            autofocus
+          />
+          <button
+            type="reset"
+            class="btn-reset"
+            v-show="query"
+            v-on:click="onReset"
+          ></button>
+        </form>
+
+        <div class="content">
+          <div v-if="hasSearched">
+            <div id="search-result" v-if="this.searchResults.length">
+              <ul>
+                <li v-for="item in searchResults">
+                  <img v-bind:src="item.image" v-bind:alt="item.name" />
+                  <p>{{item.name}}</p>
+                </li>
+              </ul>
+            </div>
+            <div v-else>{{query}} 검색 결과가 없습니다</div>
+          </div>
+          <ul id="tabs" class="tabs" v-else>
+            <li
+              v-for="tab in tabs"
+              v-bind:class="{active: tab === selectedTab}"
+              v-on:click="onChange(tab)"
+            >
+              {{tab}}
+            </li>
+          </ul>
+
+          <div
+            id="search-keyword"
+            v-if="selectedTab === tabs[0] && !hasSearched"
+          >
+            <ul class="list">
+              <li
+                v-for="(item, idx) in keywords"
+                v-on:click="onClickKeyword(item.keyword)"
+              >
+                <span class="number">{{idx+1}}</span>
+                {{item.keyword}}
+              </li>
+            </ul>
+          </div>
+
+          <div
+            id="search-history"
+            v-else-if="selectedTab === tabs[1] && !hasSearched"
+          >
+            <div v-if="histories.length">
+              <ul class="list">
+                <li
+                  v-for="item in histories"
+                  v-on:click="(e)=>onClickHistory(e.target, item.keyword)"
+                >
+                  {{item.keyword}}
+                  <span class="date">{{item.date}}</span>
+                  <button
+                    class="btn-remove"
+                    v-on:click="(e) => onRemove(e.target, item.keyword)"
+                  ></button>
+                </li>
+              </ul>
+            </div>
+            <div v-else>최근 검색어가 없습니다</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
