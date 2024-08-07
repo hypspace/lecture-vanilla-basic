@@ -37,8 +37,8 @@ new Vue({
       }
     },
     onClickKeyword(keyword) {
-      console.log('onClickKeyword()', keyword)
       this.search(keyword)
+      this.query = keyword
     },
     fetchKeywords() {
       KeywordModel.list().then(data => {
