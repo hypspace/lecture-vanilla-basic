@@ -15,9 +15,12 @@ export default {
     },
   },
   watch: {
+    value(newValue) {
+      this.inputValue = newValue
+    },
     inputValue(newValue) {
       if (!newValue) {
-        this.hasSearched = false
+        this.$emit('@reset', this.$refs.input)
       }
     },
   },
